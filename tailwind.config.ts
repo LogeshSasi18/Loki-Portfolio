@@ -47,24 +47,21 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Neon Portfolio Colors
-        neon: {
-          blue: "hsl(var(--neon-blue))",
-          purple: "hsl(var(--neon-purple))",
-          cyan: "hsl(var(--neon-cyan))",
-          pink: "hsl(var(--neon-pink))",
+        // Portfolio theme colors
+        portfolio: {
+          bg: "hsl(var(--portfolio-bg))",
+          black: "hsl(var(--portfolio-black))",
+          muted: "hsl(var(--portfolio-muted))",
         },
-        glass: "hsl(var(--glass))",
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+      },
+      spacing: {
+        'emblem': 'var(--emblem-size)',
+        'sidebar': 'var(--sidebar-width)',
+      },
+      transitionDuration: {
+        'fast': 'var(--transition-fast)',
+        'normal': 'var(--transition-normal)',
+        'slow': 'var(--transition-slow)',
       },
       borderRadius: {
         lg: "var(--radius)",

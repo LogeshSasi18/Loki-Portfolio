@@ -2,68 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cyberpunk Portfolio Design System - Dark theme with neon accents */
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Karla', sans-serif;
+}
+.logo-font {
+  font-family: 'Lobster', cursive;
+}
 
 @layer base {
   :root {
-    /* Dark Portfolio Color Palette */
-    --background: 218 28% 3%;
-    --foreground: 210 40% 98%;
+    /* Portfolio Theme -  Black & Warm Background */
+    --background: 14 60% 97%;  /* #FBF6F5 */
+    --foreground: 0 0% 0%;     /* #000000 */
 
-    --card: 220 30% 6%;
-    --card-foreground: 210 40% 98%;
+    --card: 14 60% 97%;
+    --card-foreground: 0 0% 0%;
 
-    --popover: 220 30% 6%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 14 60% 97%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Neon Electric Blue Primary */
-    --primary: 195 100% 50%;
-    --primary-foreground: 218 28% 3%;
+    --primary: 0 0% 0%;        /* #000000 */
+    --primary-foreground: 14 60% 97%;
 
-    /* Purple Secondary */
-    --secondary: 262 52% 47%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 7%;      /* #111111 */
+    --secondary-foreground: 14 60% 97%;
 
-    /* Cyan Accent */
-    --accent: 187 85% 53%;
-    --accent-foreground: 218 28% 3%;
+    --muted: 0 0% 7%;          /* #111111 */
+    --muted-foreground: 0 0% 50%;
 
-    --muted: 220 20% 15%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 0 0% 0%;
+    --accent-foreground: 14 60% 97%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 14 60% 97%;
 
-    --border: 220 20% 20%;
-    --input: 220 20% 15%;
-    --ring: 195 100% 50%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 0%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    /* Custom Portfolio Colors */
-    --neon-blue: 195 100% 50%;
-    --neon-purple: 262 52% 47%;
-    --neon-cyan: 187 85% 53%;
-    --neon-pink: 330 81% 60%;
-    --dark-slate: 218 28% 3%;
-    --dark-card: 220 30% 6%;
-    --glass: 220 30% 10%;
+    /* Portfolio-specific tokens */
+    --portfolio-bg: 14 60% 97%;      /* #FBF6F5 */
+    --portfolio-black: 0 0% 0%;      /* #000000 */
+    --portfolio-muted: 0 0% 7%;      /* #111111 */
+    
+    /* Animation durations for ultra-smooth feel */
+    --transition-fast: 250ms;
+    --transition-normal: 350ms;
+    --transition-slow: 500ms;
+    
+    /* Spacing for emblem and layout */
+    --emblem-size: 120px;
+    --sidebar-width: 80px;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--neon-purple)));
-    --gradient-accent: linear-gradient(135deg, hsl(var(--neon-cyan)), hsl(var(--neon-pink)));
-    --gradient-dark: linear-gradient(135deg, hsl(var(--dark-slate)), hsl(var(--dark-card)));
-    --gradient-glass: linear-gradient(135deg, hsl(var(--glass) / 0.8), hsl(var(--glass) / 0.3));
+    --sidebar-background: 0 0% 98%;
 
-    /* Shadows and Glows */
-    --glow-primary: 0 0 20px hsl(var(--neon-blue) / 0.5);
-    --glow-secondary: 0 0 20px hsl(var(--neon-purple) / 0.5);
-    --glow-accent: 0 0 20px hsl(var(--neon-cyan) / 0.5);
-    --shadow-glass: 0 25px 50px -12px hsl(220 30% 0% / 0.25);
+    --sidebar-foreground: 240 5.3% 26.1%;
 
-    /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Keep same theme in dark mode - no dark mode toggle needed */
+    --background: 14 60% 97%;
+    --foreground: 0 0% 0%;
+    --card: 14 60% 97%;
+    --card-foreground: 0 0% 0%;
+    --popover: 14 60% 97%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 14 60% 97%;
+    --secondary: 0 0% 7%;
+    --secondary-foreground: 14 60% 97%;
+    --muted: 0 0% 7%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 0 0% 0%;
+    --accent-foreground: 14 60% 97%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 14 60% 97%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 0%;
   }
 }
 
@@ -73,116 +108,121 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    background: linear-gradient(135deg, hsl(var(--dark-slate)), hsl(var(--dark-card)));
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  html {
-    scroll-behavior: smooth;
+    @apply bg-background text-foreground font-sans antialiased;
+    background-color: hsl(var(--portfolio-bg));
+    color: hsl(var(--portfolio-black));
+    overflow-x: hidden;
   }
 }
 
 @layer components {
-  /* Glass Morphism */
-  .glass {
-    background: hsl(var(--glass) / 0.1);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid hsl(var(--border) / 0.2);
-    box-shadow: var(--shadow-glass);
+  /* Portfolio-specific component styles */
+  .portfolio-transition {
+    transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-  /* Neon Glow Effects */
-  .glow-primary {
-    box-shadow: var(--glow-primary);
+  
+  .portfolio-transition-fast {
+    transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-  .glow-secondary {
-    box-shadow: var(--glow-secondary);
+  
+  .emblem-float {
+    animation: float 6s ease-in-out infinite;
   }
-
-  .glow-accent {
-    box-shadow: var(--glow-accent);
+  
+  .emblem-pulse {
+    animation: pulse 2s ease-in-out infinite;
   }
-
-  /* Animated Gradient Backgrounds */
-  .gradient-animated {
-    background: linear-gradient(-45deg, 
-      hsl(var(--neon-blue)), 
-      hsl(var(--neon-purple)), 
-      hsl(var(--neon-cyan)), 
-      hsl(var(--neon-pink)));
-    background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite;
+  
+  .text-portfolio {
+    color: hsl(var(--portfolio-black));
   }
-
-  /* Particle Container */
-  .particles-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    opacity: 0.6;
+  
+  .text-portfolio-muted {
+    color: hsl(var(--portfolio-muted));
+  }
+  
+  .bg-portfolio {
+    background-color: hsl(var(--portfolio-bg));
+  }
+  
+  .sidebar-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.1em;
+    font-weight: 400;
   }
 }
 
-@layer utilities {
-  /* Animation Keyframes */
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
   }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+  50% {
+    transform: translateY(-10px);
   }
+}
 
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px hsl(var(--neon-blue) / 0.5); }
-    50% { box-shadow: 0 0 40px hsl(var(--neon-blue) / 0.8); }
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
   }
-
-  @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  50% {
+    transform: scale(1.05);
   }
+}
 
-  @keyframes zoom-in {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-
-  /* Animation Classes */
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
+@media screen and (max-width: 768px) {
+  .responsive-PL-h1 {
+    font-size: 1.5rem; /* 24px */
+    margin-left: -60px;
   }
-
-  .animate-slide-up {
-    animation: slide-up 0.6s ease-out;
+  .responsive-PL-h2 {
+    margin-right: -290px !important;
+    position: absolute;
   }
-
-  .animate-zoom-in {
-    animation: zoom-in 0.5s ease-out;
+  .responsive-hero-layout {
+    display: flex;
+    flex-direction: column;
+  }
+  .responsive-PL-about {
+    margin-left: -100px !important;
+    position: absolute;
+  }
+  .responsive-hero-content{
+    display: flex;
+    flex-direction: column-reverse;
+    width: 350px;
+    bottom: 140px;
+    left: 55px !important;
+    /* bottom: 50px !important; */
+    color: black !important;
+  }
+  .res-img{
+    width: 180px !important;
+    height: 220px !important;
+    margin-left: auto;
+    border: 1px solid #6b7280;
+    margin-right: auto;
+    border-radius: 10%;
+  }
+  .res-hero-leftside{
+    background-color: white !important;
+  }
+  .text-color-black{
+    color: black !important;
+  }
+  .text-color-line{
+    background-color: black !important;
   }
 }

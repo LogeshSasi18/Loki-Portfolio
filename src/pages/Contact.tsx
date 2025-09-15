@@ -1,315 +1,270 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
+import { CentralEmblem } from "@/components/portfolio/CentralEmblem";
+import { Mail, Phone, MapPin, Send, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from "lucide-react";
+import emailjs from "emailjs-com";
+import { useNavigate } from "react-router-dom";
 
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-const contactInfo = [
-  {
-    icon: <Mail size={24} />,
-    title: "Email",
-    value: "john.doe@example.com",
-    href: "mailto:john.doe@example.com",
-  },
-  {
-    icon: <Phone size={24} />,
-    title: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
-  },
-  {
-    icon: <MapPin size={24} />,
-    title: "Location",
-    value: "San Francisco, CA",
-    href: "#",
-  },
-];
-
-const socialLinks = [
-  {
-    icon: <Linkedin size={24} />,
-    name: "LinkedIn",
-    href: "https://linkedin.com/in/johndoe",
-    color: "hover:text-blue-400",
-  },
-  {
-    icon: <Github size={24} />,
-    name: "GitHub",
-    href: "https://github.com/johndoe",
-    color: "hover:text-gray-400",
-  },
-  {
-    icon: <Twitter size={24} />,
-    name: "Twitter",
-    href: "https://twitter.com/johndoe",
-    color: "hover:text-blue-400",
-  },
-];
-
-const Contact = () => {
-  const [formData, setFormData] = useState<FormData>({
+export const Contact = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
-        variant: "destructive",
-      });
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await emailjs.send(
+        "service_7vlp0z2", // Replace with your EmailJS service ID
+        "template_2x4ym29", // Replace with your EmailJS template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        "anbEWpkJLSzDXET6o" // Replace with your EmailJS public key
+      );
+
       toast({
-        title: "Message Sent!",
-        description: "Thank you for your message. I'll get back to you soon!",
+        title: "Message sent!",
+        description: "Thanks for reaching out. I'll get back to you soon.",
       });
-      
+
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: "Something went wrong. Please try again later.",
         variant: "destructive",
       });
-    } finally {
-      setIsSubmitting(false);
     }
+
+    setIsSubmitting(false);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: "logeshsasi18@gmail.com",
+      href: "mailto:logeshsasi18@gmail.com",
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "+91 6374092685",
+      href: "tel:+916374092685",
+    },
+    {
+      icon: MapPin,
+      label: "Theni",
+      value: "Theni, Tamil Nadu",
+      href: "#",
+    },
+  ];
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen py-20 px-6"
-    >
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
-            Get In Touch
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Ready to bring your ideas to life? Let's collaborate and create something amazing together.
-          </p>
-        </motion.div>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Circular Mask Transition Background */}
+      <motion.div
+        className="absolute inset-0 bg-portfolio-bg"
+        initial={{ clipPath: "circle(0% at 50% 50%)" }}
+        animate={{ clipPath: "circle(150% at 50% 50%)" }}
+        exit={{ clipPath: "circle(0% at 50% 50%)" }}
+        transition={{ duration: 1.2 }}
+      />
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <Card className="glass p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-neon-cyan">Send a Message</h2>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name" className="text-foreground">Name *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="mt-2 glass border-border focus:border-neon-blue"
-                      placeholder="Your full name"
-                      required
-                    />
+      {/* Central Emblem */}
+      <motion.button
+        className="absolute left-6 top-6 text-black z-[50]"
+        onClick={() => navigate("/")}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ duration: 0.25 }}
+      >
+        <ArrowLeft size={24} />
+      </motion.button>
+      {/* Contact Content */}
+      <motion.div
+        className="max-w-6xl mx-auto px-8 z-20 relative"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        transition={{ duration: 0.6 }}
+      >
+        <motion.div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left Column - Contact Info */}
+          <motion.div variants={itemVariants} className="space-y-8">
+            <div>
+              <h1 className="text-6xl lg:text-7xl font-light text-portfolio-black leading-tight mb-8">
+                Say Hi..
+              </h1>
+              <p className="text-lg text-portfolio-muted leading-relaxed">
+                I'm always open to discussing new opportunities, creative
+                projects, or just having a chat about technology and design.
+              </p>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-6">
+              {contactInfo.map((info, index) => (
+                <motion.a
+                  key={info.label}
+                  href={info.href}
+                  className="flex items-center gap-4 group portfolio-transition-fast"
+                  variants={itemVariants}
+                  whileHover={{ x: 10 }}
+                >
+                  <div className="p-3 border border-portfolio-black group-hover:bg-portfolio-black group-hover:text-portfolio-bg portfolio-transition-fast">
+                    <info.icon size={20} />
                   </div>
                   <div>
-                    <Label htmlFor="email" className="text-foreground">Email *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="mt-2 glass border-border focus:border-neon-blue"
-                      placeholder="your.email@example.com"
-                      required
-                    />
+                    <p className="text-sm text-portfolio-muted">{info.label}</p>
+                    <p className="text-portfolio-black font-medium">
+                      {info.value}
+                    </p>
                   </div>
-                </div>
+                </motion.a>
+              ))}
+            </div>
 
+            {/* CTA */}
+            <motion.div variants={itemVariants} className="pt-8">
+              {/* <p className="text-portfolio-muted mb-4">
+                Let's create something amazing together.
+              </p> */}
+              <motion.div
+                className="w-16 h-16 border border-portfolio-black rounded-full flex items-center justify-center cursor-pointer group"
+                whileHover={{ scale: 1.1, rotate: 360 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Send size={20} className="text-portfolio-black" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Column - Contact Form */}
+          <motion.div variants={itemVariants}>
+            <form onSubmit={handleSubmit} className="space-y-6 mt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="subject" className="text-foreground">Subject</Label>
                   <Input
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    className="mt-2 glass border-border focus:border-neon-blue"
-                    placeholder="What's this about?"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="message" className="text-foreground">Message *</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className="mt-2 glass border-border focus:border-neon-blue min-h-[120px]"
-                    placeholder="Tell me about your project or idea..."
+                    placeholder="Your Name"
+                    className="border-portfolio-black focus:ring-portfolio-black bg-transparent"
                     required
+                    value={formData.name}
+                    onChange={handleChange}
+                    name="name"
                   />
                 </div>
+                <div>
+                  <Input
+                    type="email"
+                    placeholder="Your Email"
+                    className="border-portfolio-black focus:ring-portfolio-black bg-transparent"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    name="email"
+                  />
+                </div>
+              </div>
 
+              <div>
+                <Input
+                  placeholder="Subject"
+                  className="border-portfolio-black focus:ring-portfolio-black bg-transparent"
+                  required
+                  value={formData.subject}
+                  onChange={handleChange}
+                  name="subject"
+                />
+              </div>
+
+              <div>
+                <Textarea
+                  placeholder="Your Message"
+                  rows={6}
+                  className="border-portfolio-black focus:ring-portfolio-black bg-transparent resize-none"
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  name="message"
+                />
+              </div>
+
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-cyan text-white font-semibold py-3 rounded-lg transition-all duration-500 glow-primary"
+                  className="w-full bg-portfolio-black text-portfolio-bg hover:bg-portfolio-muted portfolio-transition-fast"
                 >
                   {isSubmitting ? (
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    >
-                      <Send size={20} />
-                    </motion.div>
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                    />
                   ) : (
                     <>
-                      <Send size={20} className="mr-2" />
                       Send Message
+                      <Send size={16} className="ml-2" />
                     </>
                   )}
                 </Button>
-              </form>
-            </Card>
+              </motion.div>
+            </form>
           </motion.div>
-
-          {/* Contact Information */}
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-8"
-          >
-            {/* Contact Details */}
-            <Card className="glass p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-neon-purple">Contact Information</h2>
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={info.title}
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  >
-                    <a
-                      href={info.href}
-                      className="flex items-center space-x-4 p-4 rounded-lg hover:bg-muted/50 transition-all duration-300 group"
-                    >
-                      <div className="text-neon-cyan group-hover:scale-110 transition-transform duration-300">
-                        {info.icon}
-                      </div>
-                      <div>
-                        <div className="font-medium text-foreground">{info.title}</div>
-                        <div className="text-muted-foreground group-hover:text-neon-cyan transition-colors duration-300">
-                          {info.value}
-                        </div>
-                      </div>
-                    </a>
-                  </motion.div>
-                ))}
-              </div>
-            </Card>
-
-            {/* Social Links */}
-            <Card className="glass p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-neon-pink">Follow Me</h2>
-              <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-4 glass rounded-full transition-all duration-300 ${social.color} hover:scale-110 hover:glow-primary`}
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.3, delay: 0.8 + index * 0.1 }}
-                    whileHover={{ y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {social.icon}
-                    <span className="sr-only">{social.name}</span>
-                  </motion.a>
-                ))}
-              </div>
-            </Card>
-
-            {/* Availability */}
-            <Card className="glass p-8">
-              <h2 className="text-2xl font-semibold mb-4 text-neon-cyan">Availability</h2>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-foreground">Available for new projects</span>
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  I typically respond within 24 hours
-                </p>
-              </div>
-            </Card>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 };
-
-export default Contact;

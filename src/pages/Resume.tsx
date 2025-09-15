@@ -1,328 +1,268 @@
-import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Download, Eye, Calendar, MapPin, Mail, Phone, Globe } from "lucide-react";
+import { motion } from 'framer-motion';
+import { CentralEmblem } from '@/components/portfolio/CentralEmblem';
+import { Download, ExternalLink } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
-const personalInfo = {
-  name: "John Doe",
-  title: "Full Stack Developer",
-  email: "john.doe@example.com",
-  phone: "+1 (555) 123-4567",
-  location: "San Francisco, CA",
-  website: "johndoe.dev",
-};
+export const Resume = () => {
+  const { toast } = useToast();
 
-const experience = [
-  {
-    title: "Senior Full Stack Developer",
-    company: "TechCorp Inc.",
-    location: "San Francisco, CA",
-    period: "2022 - Present",
-    description: "Led development of scalable web applications serving 100K+ users. Implemented microservices architecture and improved system performance by 40%.",
-    achievements: [
-      "Built and deployed 15+ production applications",
-      "Mentored 5 junior developers",
-      "Reduced page load times by 60%",
-      "Implemented CI/CD pipelines"
-    ],
-    technologies: ["React", "Node.js", "AWS", "PostgreSQL", "Docker"]
-  },
-  {
-    title: "Full Stack Developer",
-    company: "StartupXYZ",
-    location: "Remote",
-    period: "2020 - 2022",
-    description: "Developed MVP and scaled platform from 0 to 10K users. Built real-time features and integrated payment systems.",
-    achievements: [
-      "Developed complete product from scratch",
-      "Implemented real-time chat functionality",
-      "Integrated Stripe payment processing",
-      "Optimized database queries for better performance"
-    ],
-    technologies: ["Vue.js", "Express.js", "MongoDB", "Socket.io", "Stripe"]
-  },
-  {
-    title: "Frontend Developer",
-    company: "DesignAgency",
-    location: "New York, NY",
-    period: "2019 - 2020",
-    description: "Created responsive web interfaces and collaborated with design teams to deliver pixel-perfect implementations.",
-    achievements: [
-      "Delivered 25+ client projects",
-      "Improved mobile performance by 50%",
-      "Implemented design system components",
-      "Led frontend optimization initiatives"
-    ],
-    technologies: ["React", "SASS", "JavaScript", "Figma", "Adobe XD"]
-  }
-];
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
 
-const education = [
-  {
-    degree: "Bachelor of Science in Computer Science",
-    school: "University of Technology",
-    location: "California, USA",
-    period: "2015 - 2019",
-    gpa: "3.8/4.0",
-    highlights: ["Magna Cum Laude", "Dean's List", "Computer Science Society President"]
-  }
-];
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+  };
 
-const skills = {
-  "Frontend": ["React", "TypeScript", "Vue.js", "Next.js", "Tailwind CSS", "Framer Motion"],
-  "Backend": ["Node.js", "Python", "Express.js", "FastAPI", "GraphQL", "REST APIs"],
-  "Database": ["PostgreSQL", "MongoDB", "Redis", "MySQL", "Firebase"],
-  "DevOps": ["AWS", "Docker", "Kubernetes", "CI/CD", "GitHub Actions", "Terraform"],
-  "Tools": ["Git", "VSCode", "Figma", "Postman", "Jira", "Slack"]
-};
-
-const Resume = () => {
   const handleDownload = () => {
-    // In a real application, this would trigger a PDF download
-    console.log("Downloading resume...");
-    // You can replace this with actual PDF download logic
-    window.open('/resume.pdf', '_blank');
+    toast({
+      title: "Download started",
+      description: "Your resume download will begin shortly.",
+    });
   };
 
-  const handlePreview = () => {
-    // In a real application, this would open a PDF preview
-    console.log("Opening resume preview...");
-    window.open('/resume.pdf', '_blank');
-  };
+  const experience = [
+    {
+      title: "Frontend Developer",
+      company: "Creative Solutions Ltd.",
+      period: "2025 - 2026",
+      description:
+        "Built responsive user interfaces using React and TypeScript. Collaborated with design teams to create seamless UI experiences and maintain code quality.",
+    },
+  ];
+
+  const education = [
+    {
+      degree: "B.Sc Computer Science",
+      school: "Madurai Kamaraj University",
+      period: "2020 - 2023",
+      description:
+        "Focused on web development, software engineering, and modern JavaScript frameworks.",
+    },
+  ];
+
+  const courses = [
+    {
+      title: "UI Development with React JS",
+      institute: "Online Certified Course",
+      year: "2024",
+      description:
+        "Completed a professional certificate course focused on building interactive and responsive user interfaces with React JS.",
+    },
+  ];
+
+  const projects = [
+    {
+      title: "Car Rental Platform",
+      description:
+        "Car booking system with real-time location tracking and admin dashboard (like Getaround).",
+    },
+    {
+      title: "Auditing & Meeting Bot",
+      description:
+        "Client, user, and project management system with automated reminders and meeting recording bot.",
+    },
+    {
+      title: "Office Food Ordering",
+      description:
+        "Platform for employees to place office food orders and track deliveries.",
+    },
+    {
+      title: "Billing System",
+      description:
+        "Web app to manage invoices, payments, and billing details efficiently.",
+    },
+    {
+      title: "Bus Booking Platform",
+      description:
+        "Online bus booking system with seat selection, pricing, and ticket generation.",
+    },
+    {
+      title: "E-commerce Dress Purchase",
+      description:
+        "Online clothing store with product listing, cart, checkout, and order management.",
+    },
+    {
+      title: "Hotel Booking System",
+      description:
+        "Tourist-focused hotel booking platform with search, booking, and payment features.",
+    },
+    {
+      title: "Portfolio Website",
+      description:
+        "Personal portfolio website showcasing projects, skills, and resume.",
+    },
+  ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen py-20 px-6"
-    >
-      <div className="container mx-auto max-w-5xl">
-        {/* Header */}
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
-            Resume
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-            Download my complete resume or preview it below
-          </p>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Circular Mask Transition Background */}
+      <motion.div
+        className="absolute inset-0 bg-portfolio-bg"
+        initial={{ clipPath: 'circle(0% at 50% 50%)' }}
+        animate={{ clipPath: 'circle(150% at 50% 50%)' }}
+        exit={{ clipPath: 'circle(0% at 50% 50%)' }}
+        transition={{ duration: 1.2 }}
+      />
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              onClick={handleDownload}
-              className="bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-cyan text-white font-semibold px-8 py-3 rounded-full glow-primary"
-            >
-              <Download size={20} className="mr-2" />
-              Download PDF
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={handlePreview}
-              className="border-neon-cyan text-neon-cyan hover:bg-neon-cyan hover:text-background font-semibold px-8 py-3 rounded-full"
-            >
-              <Eye size={20} className="mr-2" />
-              Preview
-            </Button>
-          </div>
-        </motion.div>
+      {/* Central Emblem */}
+      <CentralEmblem />
 
-        <div className="space-y-8">
-          {/* Personal Information */}
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <Card className="glass p-8">
-              <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold text-neon-cyan mb-2">{personalInfo.name}</h2>
-                <p className="text-xl text-muted-foreground mb-4">{personalInfo.title}</p>
-              </div>
+      {/* Resume Content */}
+      <motion.div
+        className="max-w-4xl mx-auto px-8 z-20 relative"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        transition={{ duration: 0.6 }}
+      >
+        <motion.div className="space-y-16">
+          {/* Header */}
+          <motion.div variants={itemVariants} className="text-center">
+            <h1 className="text-6xl lg:text-7xl font-light text-portfolio-black leading-tight mb-8">
+              Resume
+            </h1>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
-                <div className="flex items-center justify-center space-x-2">
-                  <Mail size={16} className="text-neon-blue" />
-                  <span className="text-sm">{personalInfo.email}</span>
-                </div>
-                <div className="flex items-center justify-center space-x-2">
-                  <Phone size={16} className="text-neon-purple" />
-                  <span className="text-sm">{personalInfo.phone}</span>
-                </div>
-                <div className="flex items-center justify-center space-x-2">
-                  <MapPin size={16} className="text-neon-cyan" />
-                  <span className="text-sm">{personalInfo.location}</span>
-                </div>
-                <div className="flex items-center justify-center space-x-2">
-                  <Globe size={16} className="text-neon-pink" />
-                  <span className="text-sm">{personalInfo.website}</span>
-                </div>
-              </div>
-            </Card>
+            {/* Download Buttons */}
+            <div className="flex justify-center gap-4">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={handleDownload}
+                  className="bg-portfolio-black text-portfolio-bg hover:bg-portfolio-muted portfolio-transition-fast"
+                >
+                  <Download size={16} className="mr-2" />
+                  Download PDF
+                </Button>
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  variant="outline"
+                  className="border-portfolio-black text-portfolio-black hover:bg-portfolio-black hover:text-portfolio-bg portfolio-transition-fast"
+                >
+                  <ExternalLink size={16} className="mr-2" />
+                  View Online
+                </Button>
+              </motion.div>
+            </div>
           </motion.div>
 
-          {/* Experience */}
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <Card className="glass p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-neon-purple">Professional Experience</h2>
+          {/* Experience & Education */}
+          <motion.div className="grid lg:grid-cols-2 gap-16">
+            {/* Experience */}
+            <motion.div variants={itemVariants} className="space-y-8">
+              <h2 className="text-3xl font-light text-portfolio-black">Experience</h2>
               <div className="space-y-8">
                 {experience.map((job, index) => (
                   <motion.div
                     key={index}
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                    className="border-l-2 border-neon-blue/30 pl-6 relative"
+                    variants={itemVariants}
+                    className="border-l-2 border-portfolio-black pl-6 space-y-2"
                   >
-                    <div className="absolute -left-2 top-0 w-4 h-4 bg-neon-blue rounded-full"></div>
-                    
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-2">
-                      <h3 className="text-xl font-semibold text-neon-cyan">{job.title}</h3>
-                      <div className="flex items-center space-x-2 text-muted-foreground">
-                        <Calendar size={16} />
-                        <span>{job.period}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-3">
-                      <p className="text-lg font-medium">{job.company}</p>
-                      <div className="flex items-center space-x-2 text-muted-foreground">
-                        <MapPin size={16} />
-                        <span>{job.location}</span>
-                      </div>
-                    </div>
-
-                    <p className="text-muted-foreground mb-4">{job.description}</p>
-
-                    <div className="mb-4">
-                      <h4 className="font-medium mb-2 text-neon-purple">Key Achievements:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                        {job.achievements.map((achievement, achievementIndex) => (
-                          <li key={achievementIndex}>{achievement}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      {job.technologies.map((tech) => (
-                        <Badge key={tech} variant="outline" className="border-neon-cyan text-neon-cyan">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
+                    <h3 className="text-xl font-medium text-portfolio-black">{job.title}</h3>
+                    <p className="text-portfolio-muted font-medium">{job.company}</p>
+                    <p className="text-sm text-portfolio-muted">{job.period}</p>
+                    <p className="text-portfolio-muted leading-relaxed">{job.description}</p>
                   </motion.div>
                 ))}
               </div>
-            </Card>
-          </motion.div>
+            </motion.div>
 
-          {/* Education */}
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            <Card className="glass p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-neon-blue">Education</h2>
-              {education.map((edu, index) => (
-                <div key={index} className="border-l-2 border-neon-purple/30 pl-6 relative">
-                  <div className="absolute -left-2 top-0 w-4 h-4 bg-neon-purple rounded-full"></div>
-                  
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-2">
-                    <h3 className="text-xl font-semibold text-neon-cyan">{edu.degree}</h3>
-                    <div className="flex items-center space-x-2 text-muted-foreground">
-                      <Calendar size={16} />
-                      <span>{edu.period}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-3">
-                    <p className="text-lg font-medium">{edu.school}</p>
-                    <div className="flex items-center space-x-2 text-muted-foreground">
-                      <MapPin size={16} />
-                      <span>{edu.location}</span>
-                    </div>
-                  </div>
-
-                  <p className="text-muted-foreground mb-3">GPA: {edu.gpa}</p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {edu.highlights.map((highlight) => (
-                      <Badge key={highlight} variant="outline" className="border-neon-purple text-neon-purple">
-                        {highlight}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </Card>
-          </motion.div>
-
-          {/* Skills */}
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1 }}
-          >
-            <Card className="glass p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-neon-cyan">Technical Skills</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {Object.entries(skills).map(([category, skillList], index) => (
+            {/* Education & Skills */}
+            <motion.div variants={itemVariants} className="space-y-8">
+              {/* Education */}
+              <div className="space-y-6">
+                <h2 className="text-3xl font-light text-portfolio-black">Education</h2>
+                {education.map((edu, index) => (
                   <motion.div
-                    key={category}
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+                    key={index}
+                    variants={itemVariants}
+                    className="border-l-2 border-portfolio-black pl-6 space-y-2"
                   >
-                    <h3 className="font-semibold mb-3 text-neon-purple">{category}</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {skillList.map((skill) => (
-                        <Badge key={skill} variant="outline" className="border-neon-blue text-neon-blue">
-                          {skill}
-                        </Badge>
-                      ))}
-                    </div>
+                    <h3 className="text-xl font-medium text-portfolio-black">{edu.degree}</h3>
+                    <p className="text-portfolio-muted font-medium">{edu.school}</p>
+                    <p className="text-sm text-portfolio-muted">{edu.period}</p>
+                    <p className="text-portfolio-muted leading-relaxed">{edu.description}</p>
                   </motion.div>
                 ))}
               </div>
-            </Card>
-          </motion.div>
-        </div>
 
-        {/* Footer CTA */}
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.4 }}
-          className="text-center mt-16"
-        >
-          <p className="text-lg text-muted-foreground mb-6">
-            Interested in working together?
-          </p>
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-neon-blue to-neon-purple hover:from-neon-purple hover:to-neon-cyan text-white px-8 py-3 rounded-full"
-            asChild
-          >
-            <a href="/contact">Let's Connect</a>
-          </Button>
+              {/* Courses / Certificates */}
+              <div className="space-y-6">
+                <h2 className="text-3xl font-light text-portfolio-black">Courses / Certificates</h2>
+                {courses.map((course, index) => (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    className="border-l-2 border-portfolio-black pl-6 space-y-2"
+                  >
+                    <h3 className="text-xl font-medium text-portfolio-black">{course.title}</h3>
+                    <p className="text-portfolio-muted font-medium">{course.institute}</p>
+                    <p className="text-sm text-portfolio-muted">{course.year}</p>
+                    <p className="text-portfolio-muted leading-relaxed">{course.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Key Skills */}
+              <div className="space-y-6">
+                <h2 className="text-3xl font-light text-portfolio-black">Key Skills</h2>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "React",
+                    "TypeScript",
+                    "Next.js",
+                    "HTML",
+                    "CSS",
+                    "Tailwind CSS",
+                    "Bootstrap",
+                    "Git",
+                    "VS Code",
+                  ].map((skill, index) => (
+                    <motion.span
+                      key={skill}
+                      className="px-3 py-2 border border-portfolio-black text-portfolio-black text-sm font-medium"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Projects */}
+          <motion.div variants={itemVariants}>
+            <h2 className="text-3xl font-light text-portfolio-black mb-6">Projects</h2>
+            <div className="space-y-6">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="border-l-2 border-portfolio-black pl-6 space-y-1"
+                >
+                  <h3 className="text-xl font-medium text-portfolio-black">{project.title}</h3>
+                  <p className="text-portfolio-muted leading-relaxed">{project.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
-
-export default Resume;
