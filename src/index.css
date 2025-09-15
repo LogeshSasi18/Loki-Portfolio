@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cyberpunk Portfolio Design System - Dark theme with neon accents */
+
+@layer base {
+  :root {
+    /* Dark Portfolio Color Palette */
+    --background: 218 28% 3%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 30% 6%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 30% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Neon Electric Blue Primary */
+    --primary: 195 100% 50%;
+    --primary-foreground: 218 28% 3%;
+
+    /* Purple Secondary */
+    --secondary: 262 52% 47%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Cyan Accent */
+    --accent: 187 85% 53%;
+    --accent-foreground: 218 28% 3%;
+
+    --muted: 220 20% 15%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 20%;
+    --input: 220 20% 15%;
+    --ring: 195 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom Portfolio Colors */
+    --neon-blue: 195 100% 50%;
+    --neon-purple: 262 52% 47%;
+    --neon-cyan: 187 85% 53%;
+    --neon-pink: 330 81% 60%;
+    --dark-slate: 218 28% 3%;
+    --dark-card: 220 30% 6%;
+    --glass: 220 30% 10%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--neon-purple)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--neon-cyan)), hsl(var(--neon-pink)));
+    --gradient-dark: linear-gradient(135deg, hsl(var(--dark-slate)), hsl(var(--dark-card)));
+    --gradient-glass: linear-gradient(135deg, hsl(var(--glass) / 0.8), hsl(var(--glass) / 0.3));
+
+    /* Shadows and Glows */
+    --glow-primary: 0 0 20px hsl(var(--neon-blue) / 0.5);
+    --glow-secondary: 0 0 20px hsl(var(--neon-purple) / 0.5);
+    --glow-accent: 0 0 20px hsl(var(--neon-cyan) / 0.5);
+    --shadow-glass: 0 25px 50px -12px hsl(220 30% 0% / 0.25);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(135deg, hsl(var(--dark-slate)), hsl(var(--dark-card)));
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glass Morphism */
+  .glass {
+    background: hsl(var(--glass) / 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--border) / 0.2);
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Neon Glow Effects */
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-secondary {
+    box-shadow: var(--glow-secondary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  /* Animated Gradient Backgrounds */
+  .gradient-animated {
+    background: linear-gradient(-45deg, 
+      hsl(var(--neon-blue)), 
+      hsl(var(--neon-purple)), 
+      hsl(var(--neon-cyan)), 
+      hsl(var(--neon-pink)));
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  /* Particle Container */
+  .particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+}
+
+@layer utilities {
+  /* Animation Keyframes */
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsl(var(--neon-blue) / 0.5); }
+    50% { box-shadow: 0 0 40px hsl(var(--neon-blue) / 0.8); }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Animation Classes */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-zoom-in {
+    animation: zoom-in 0.5s ease-out;
+  }
+}
